@@ -74,7 +74,7 @@
             "password":password.value
         }
 
-        axios.post("http://localhost:3002/userRoute/signup", dto)
+        axios.post(`http://localhost:${process.env.PORT}/userRoute/signup`, dto)
             .then(function(response){
                 console.log(response)
                 document.querySelector(".displayMessage").innerHTML = "User is Successully Registered!!!"
@@ -88,7 +88,7 @@
     function loginUser(event){
         event.preventDefault()
 
-        window.location.href = "http://localhost:3002/userRoute/login"
+        window.location.href = `http://localhost:${process.env.PORT}/userRoute/login`
     }
 
 

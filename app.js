@@ -21,7 +21,7 @@ const app = express()
 
 const httpServer = createServer(app)
 const io = new Server(httpServer)
-const PORT = 3002
+const PORT = process.env.PORT
 
 //make connection to atlas
 makeConnectionToMongoDBAtlas()
