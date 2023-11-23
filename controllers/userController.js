@@ -2,10 +2,10 @@ const userModel = require("../models/usermodel")
 const conversationModel = require("../models/conversationmodel")
 const chatModel = require("../models/chatmodel")
 const jwt = require('jsonwebtoken')
-const { JWT_KEY } = require('../secret')
+// const { JWT_KEY } = require('../secret')
 const bcrypt = require("bcrypt")
 const dotenv = require('dotenv')
-dotenv.config({path:"../../.env"})
+dotenv.config({path:"../.env"})
 
 module.exports.signup = async function register(req, res){
     const name = req.body.name
@@ -44,7 +44,7 @@ module.exports.login = async function login(req, res){
         }else{
             bcrypt.compare(password, user.password)
                 .then(()=>{
-                    let token = jwt.sign({payload:user.id}, JWT_KEY)
+                    let token = jwt.sign({payload:user.id}, process.env.JWT_KEY)
                     res.cookie("login", token, {httpOnly:true, secure:false})
 
                     return res.json({

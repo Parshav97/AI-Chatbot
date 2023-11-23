@@ -1,6 +1,5 @@
 const chatModel = require("../models/chatmodel")
-const dotenv = require('dotenv')
-dotenv.config({path:"../../.env"})
+
 
 module.exports.botMessage = async function botReply(data){
     try{

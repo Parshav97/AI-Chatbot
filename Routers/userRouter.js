@@ -2,8 +2,6 @@ const express = require("express")
 const userRouter = express.Router()
 const path = require('path')
 const { signup, login, logout, startConversation, reply } = require("../controllers/userController")
-const { makeSocketConnection } = require("../app")
-
 const middleware = require("./middleware")
 
 

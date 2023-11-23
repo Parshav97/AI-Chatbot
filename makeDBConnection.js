@@ -1,6 +1,9 @@
 const mongoose = require("mongoose")
-const { PASSWORD } = require("./secret")
-const connectionString = `mongodb+srv://root:${PASSWORD}@cluster0.bnnwdyv.mongodb.net/`
+// const { PASSWORD } = require("./secret")
+const dotenv = require('dotenv')
+dotenv.config({path:".env"})
+
+const connectionString = `mongodb+srv://root:${process.env.PASSWORD}@cluster0.bnnwdyv.mongodb.net/`
 
 
 

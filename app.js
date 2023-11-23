@@ -7,11 +7,14 @@ const { createServer } = require("http")
 const { Server } = require("socket.io")
 const userRouter = require("./Routers/userRouter")
 const conversationRouter = require("./Routers/conversationRouter")
-const { OPENAI_API_KEY } = require("./secret")
+// const { OPENAI_API_KEY } = require("./secret")
+const dotenv = require('dotenv')
+dotenv.config({path:".env"})
+
 const path = require('path')
 
 const openai = new OpenAI({
-    apiKey: OPENAI_API_KEY 
+    apiKey: process.env.OPENAI_API_KEY 
 });
 
 const app = express()

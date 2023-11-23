@@ -1,7 +1,7 @@
 const conversationModel = require("../models/conversationmodel")
 const chatModel = require("../models/chatmodel")
 const dotenv = require('dotenv')
-dotenv.config({path:"../../.env"})
+dotenv.config({path:"../.env"})
 
 module.exports.getConversations = async function getConversations(req, res){
     let userid = req.userId
