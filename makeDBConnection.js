@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const { PASSWORD } = require("../secret")
+const { PASSWORD } = require("./secret")
 const connectionString = `mongodb+srv://root:${PASSWORD}@cluster0.bnnwdyv.mongodb.net/`
 
 

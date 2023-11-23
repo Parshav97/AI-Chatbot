@@ -1,6 +1,6 @@
 
 const jwt = require("jsonwebtoken")
-const { JWT_KEY } = require("../../secret")
+const { JWT_KEY } = require("../secret")
 
 function protectroute(req, res, next){
     if(req.cookies.login){
