@@ -58,6 +58,8 @@
 <script>
 
     var port = "<%= port %>"
+    var domain = "<%= domain %>"
+
     function registerUser(event){
         event.preventDefault()
         const name = document.querySelector('#exampleInputName')
@@ -76,7 +78,7 @@
             "password":password.value
         }
 
-        axios.post(`http://localhost:${port}/userRoute/signup`, dto)
+        axios.post(`http://${domain}:${port}/userRoute/signup`, dto)
             .then(function(response){
                 console.log(response)
                 document.querySelector(".displayMessage").innerHTML = "User is Successully Registered!!!"
@@ -90,7 +92,7 @@
     function loginUser(event){
         event.preventDefault()
 
-        window.location.href = `http://localhost:${port}/userRoute/login`
+        window.location.href = `http://${domain}:${port}/userRoute/login`
     }
 
 

@@ -51,6 +51,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script>
     var port = "<%= port %>"
+    var domain = "<%= domain %>"
+
     function loginUser(event){
         event.preventDefault()
         const email = document.querySelector('#exampleInputEmail1')
@@ -67,12 +69,12 @@
         }
 
 
-        axios.post(`http://localhost:${port}/userRoute/login`, dto)
+        axios.post(`http://${domain}:${port}/userRoute/login`, dto)
             .then(function(resp){
                 console.log("Logged In Successsully!!!")
                 console.log(resp)
                 document.querySelector("#status").innerHTML = '<h3>Successully Logged In</h3>'
-                window.location.href=`http://localhost:${port}/userRoute/dashboard`
+                window.location.href=`http://${domain}:${port}/userRoute/dashboard`
             })
             .catch((err)=>{
                 console.log(err.message)

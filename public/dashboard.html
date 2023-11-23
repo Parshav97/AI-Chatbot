@@ -137,6 +137,7 @@
 
     const socket = io()
     var port = "<%= port %>"
+    var domain = "<%= domain %>"
     axios.defaults.withCredentials = true
     // const loader = document.getElementById('spinner')
     const generateResponse = document.querySelector('#generateResponse')
@@ -146,7 +147,7 @@
     chatMessageEle.scrollTop = chatMessageEle.scrollHeight - chatMessageEle.clientHeight
 
     const hamburger = document.querySelector('.hamburger')
-    axios.get(`http://localhost:${port}/conversationRoute/conversations`)
+    axios.get(`http://${domain}:${port}/conversationRoute/conversations`)
         .then((res)=>{
             
             let array = res.data.conversations
@@ -191,7 +192,7 @@
 
         localStorage.setItem("page",1)
         const page = localStorage.getItem("page")
-        axios.get(`http://localhost:${port}/conversationRoute/conversation/${id}/${page}`)
+        axios.get(`http://${domain}:${port}/conversationRoute/conversation/${id}/${page}`)
             .then((res)=>{
                 let arrayOfMsg = res.data.chatMessages
 
@@ -245,10 +246,10 @@
         let dto = {
             "headline":heading.value
         }
-        axios.post(`http://localhost:${port}/userRoute/startConversation`, dto)
+        axios.post(`http://${domain}:${port}/userRoute/startConversation`, dto)
             .then((res)=>{
                 event.target.id = res.data.conversationId
-                window.location.href = `http://localhost:${port}/userRoute/dashboard`
+                window.location.href = `http://${domain}:${port}/userRoute/dashboard`
             })
             .catch((err)=>{
                 console.log(err.message)
@@ -258,9 +259,9 @@
 
     function logout(event){
         event.preventDefault()
-        axios.post(`http://localhost:${port}/userRoute/logout`)
+        axios.post(`http://${domain}:${port}/userRoute/logout`)
             .then((res)=>{
-                window.location.href = `http://localhost:${port}/userRoute/login`
+                window.location.href = `http://${domain}:${port}/userRoute/login`
             })
             .catch((err)=>{
                 console.log(err.message)
@@ -275,7 +276,7 @@
         }
         textSearch.disabled = true
         generateResponse.disabled = true
-        axios.post(`http://localhost:${port}/userRoute/reply`, dto)
+        axios.post(`http://${domain}:${port}/userRoute/reply`, dto)
             .then((res)=>{
                 event.target.id = localStorage.getItem("conversationId")
                 textSearch.value = ""
