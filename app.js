@@ -19,6 +19,9 @@ const openai = new OpenAI({
 
 const app = express()
 
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 const httpServer = createServer(app)
 const io = new Server(httpServer)
 const PORT = process.env.PORT
@@ -36,7 +39,7 @@ app.use((req,res,next)=>{
     return next()
 })
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public")));
 app.use('/userRoute',userRouter)
 app.use('/conversationRoute',conversationRouter)
 

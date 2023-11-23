@@ -136,6 +136,7 @@
 <script>
 
     const socket = io()
+    var port = "<%= port %>"
     axios.defaults.withCredentials = true
     // const loader = document.getElementById('spinner')
     const generateResponse = document.querySelector('#generateResponse')
@@ -145,9 +146,8 @@
     chatMessageEle.scrollTop = chatMessageEle.scrollHeight - chatMessageEle.clientHeight
 
     const hamburger = document.querySelector('.hamburger')
-    axios.get(`http://localhost:${process.env.PORT}/conversationRoute/conversations`)
+    axios.get(`http://localhost:${port}/conversationRoute/conversations`)
         .then((res)=>{
-            console.log(res.data.conversations)
             
             let array = res.data.conversations
 
@@ -168,20 +168,34 @@
     function getConversationDetail(event){
         event.preventDefault()
 
+        let conId = localStorage.getItem("conversationId")
+        if(conId!=null){
+            let convs = hamburger.children
+            for (let item of convs) {
+                if(item.id == conId){
+                    item.setAttribute("style","background-color:#0040ff;")
+                }
+            }
+        }
+
+
         const msgs = document.querySelector(".chatMessage")
         msgs.innerHTML = ""
         let id = event.target.id
         localStorage.setItem("conversationId", id)
+        event.target.setAttribute("style","background-color:grey;")
+        
+        
 
+        
 
         localStorage.setItem("page",1)
         const page = localStorage.getItem("page")
-        axios.get(`http://localhost:${process.env.PORT}/conversationRoute/conversation/${id}/${page}`)
+        axios.get(`http://localhost:${port}/conversationRoute/conversation/${id}/${page}`)
             .then((res)=>{
                 let arrayOfMsg = res.data.chatMessages
 
                 if(arrayOfMsg.length!=0){
-                    console.log(arrayOfMsg)
 
                     arrayOfMsg.forEach((each, idx)=>{
                         let parentdiv = document.createElement('div')
@@ -200,7 +214,7 @@
                         }
                         div.innerHTML = each.message
                         parentdiv.appendChild(div)
-                        msgs.prepend(parentdiv)
+                        msgs.appendChild(parentdiv)
                     })
 
                     textSearch.disabled = false
@@ -231,11 +245,10 @@
         let dto = {
             "headline":heading.value
         }
-        axios.post(`http://localhost:${process.env.PORT}/userRoute/startConversation`, dto)
+        axios.post(`http://localhost:${port}/userRoute/startConversation`, dto)
             .then((res)=>{
-                console.log(res.data.conversationId , "Conversation Created")
                 event.target.id = res.data.conversationId
-                window.location.href = `http://localhost:${process.env.PORT}/userRoute/dashboard`
+                window.location.href = `http://localhost:${port}/userRoute/dashboard`
             })
             .catch((err)=>{
                 console.log(err.message)
@@ -245,10 +258,9 @@
 
     function logout(event){
         event.preventDefault()
-        axios.post(`http://localhost:${process.env.PORT}/userRoute/logout`)
+        axios.post(`http://localhost:${port}/userRoute/logout`)
             .then((res)=>{
-                console.log(res.data.message)
-                window.location.href = `http://localhost:${process.env.PORT}/userRoute/login`
+                window.location.href = `http://localhost:${port}/userRoute/login`
             })
             .catch((err)=>{
                 console.log(err.message)
@@ -263,9 +275,8 @@
         }
         textSearch.disabled = true
         generateResponse.disabled = true
-        axios.post(`http://localhost:${process.env.PORT}/userRoute/reply`, dto)
+        axios.post(`http://localhost:${port}/userRoute/reply`, dto)
             .then((res)=>{
-                console.log(res.data.message)
                 event.target.id = localStorage.getItem("conversationId")
                 textSearch.value = ""
                 
@@ -280,7 +291,6 @@
         if(data.message){
             event.target.id = localStorage.getItem("conversationId")
      
-            console.log("call to get detail started")
             let id = event.target.id
 
             let convs = hamburger.children

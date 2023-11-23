@@ -4,18 +4,18 @@ const path = require('path')
 const { signup, login, logout, startConversation, reply } = require("../controllers/userController")
 const middleware = require("./middleware")
 
-
+const portNumber = process.env.PORT
 
 
 userRouter
     .route("/signup")
     .post(signup)
-    .get((req, res)=> res.sendFile(path.join(__dirname, '../public', 'signup.html')))
+    .get((req, res)=> res.render(path.join(__dirname, '../public', 'signup.html'), {port:portNumber} ))
     
 userRouter
     .route("/login")
     .post(login)
-    .get((req, res)=> res.sendFile(path.join(__dirname, '../public', 'login.html')))
+    .get((req, res)=> res.render(path.join(__dirname, '../public', 'login.html'), {port:portNumber}))
 
 userRouter
     .route("/logout")
@@ -31,7 +31,7 @@ userRouter
 
 userRouter
     .route("/dashboard")
-    .get(middleware, (req,res)=>res.sendFile(path.join(__dirname, '../public', 'dashboard.html')))
+    .get(middleware, (req,res)=>res.render(path.join(__dirname, '../public', 'dashboard.html'), {port:portNumber}))
 
 
 module.exports = userRouter;
