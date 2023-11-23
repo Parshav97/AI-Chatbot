@@ -146,7 +146,7 @@
     chatMessageEle.scrollTop = chatMessageEle.scrollHeight - chatMessageEle.clientHeight
 
     const hamburger = document.querySelector('.hamburger')
-    axios.get(`http://${domain}/conversationRoute/conversations`)
+    axios.get(`https://${domain}/conversationRoute/conversations`)
         .then((res)=>{
             
             let array = res.data.conversations
@@ -191,7 +191,7 @@
 
         localStorage.setItem("page",1)
         const page = localStorage.getItem("page")
-        axios.get(`http://${domain}/conversationRoute/conversation/${id}/${page}`)
+        axios.get(`https://${domain}/conversationRoute/conversation/${id}/${page}`)
             .then((res)=>{
                 let arrayOfMsg = res.data.chatMessages
 
@@ -245,10 +245,10 @@
         let dto = {
             "headline":heading.value
         }
-        axios.post(`http://${domain}/userRoute/startConversation`, dto)
+        axios.post(`https://${domain}/userRoute/startConversation`, dto)
             .then((res)=>{
                 event.target.id = res.data.conversationId
-                window.location.href = `http://${domain}/userRoute/dashboard`
+                window.location.href = `https://${domain}/userRoute/dashboard`
             })
             .catch((err)=>{
                 console.log(err.message)
@@ -258,9 +258,9 @@
 
     function logout(event){
         event.preventDefault()
-        axios.post(`http://${domain}/userRoute/logout`)
+        axios.post(`https://${domain}/userRoute/logout`)
             .then((res)=>{
-                window.location.href = `http://${domain}/userRoute/login`
+                window.location.href = `https://${domain}/userRoute/login`
             })
             .catch((err)=>{
                 console.log(err.message)
@@ -275,7 +275,7 @@
         }
         textSearch.disabled = true
         generateResponse.disabled = true
-        axios.post(`http://${domain}/userRoute/reply`, dto)
+        axios.post(`https://${domain}/userRoute/reply`, dto)
             .then((res)=>{
                 event.target.id = localStorage.getItem("conversationId")
                 textSearch.value = ""

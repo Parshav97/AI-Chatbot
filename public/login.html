@@ -68,12 +68,12 @@
         }
 
 
-        axios.post(`http://${domain}/userRoute/login`, dto)
+        axios.post(`https://${domain}/userRoute/login`, dto)
             .then(function(resp){
                 console.log("Logged In Successsully!!!")
                 console.log(resp)
                 document.querySelector("#status").innerHTML = '<h3>Successully Logged In</h3>'
-                window.location.href=`http://${domain}/userRoute/dashboard`
+                window.location.href=`https://${domain}/userRoute/dashboard`
             })
             .catch((err)=>{
                 console.log(err.message)

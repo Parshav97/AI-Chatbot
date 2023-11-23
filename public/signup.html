@@ -77,7 +77,7 @@
             "password":password.value
         }
 
-        axios.post(`http://${domain}/userRoute/signup`, dto)
+        axios.post(`https://${domain}/userRoute/signup`, dto)
             .then(function(response){
                 console.log(response)
                 document.querySelector(".displayMessage").innerHTML = "User is Successully Registered!!!"
@@ -91,7 +91,7 @@
     function loginUser(event){
         event.preventDefault()
 
-        window.location.href = `http://${domain}/userRoute/login`
+        window.location.href = `https://${domain}/userRoute/login`
     }
 
 
